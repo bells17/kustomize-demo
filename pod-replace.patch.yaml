@@ -1,0 +1,15 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pod-replace
+spec:
+  selector:
+    matchLabels:
+      $patch: replace
+      replaced: "true"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        $patch: replace
+        replaced: "true"

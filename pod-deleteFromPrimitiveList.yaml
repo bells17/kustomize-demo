@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pod-deleteFromPrimitiveList
+  finalizers:
+    - a
+    - b
+    - c
+spec:
+  selector:
+    matchLabels:
+      run: pod
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: pod
+    spec:
+      containers:
+      - name: pod
+        image: nginx
+        ports:
+        - containerPort: 80

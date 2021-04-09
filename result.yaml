@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pod-delete
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: pod
+  template:
+    metadata:
+      labels:
+        run: pod
+    spec:
+      containers:
+      - image: nginx
+        name: pod
+        ports:
+        - containerPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  finalizers:
+  - a
+  name: pod-deleteFromPrimitiveList
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: pod
+  template:
+    metadata:
+      labels:
+        run: pod
+    spec:
+      containers:
+      - image: nginx
+        name: pod
+        ports:
+        - containerPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pod-replace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      replaced: "true"
+  template:
+    metadata:
+      labels:
+        replaced: "true"
+    spec:
+      containers:
+      - image: nginx
+        name: pod
+        ports:
+        - containerPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  finalizers:
+  - b
+  - c
+  - a
+  name: pod-setElementOrder
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: pod
+  template:
+    metadata:
+      labels:
+        run: pod
+    spec:
+      containers:
+      - image: nginx
+        name: pod
+        ports:
+        - containerPort: 80
